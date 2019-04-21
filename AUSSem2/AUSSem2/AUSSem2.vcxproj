@@ -72,10 +72,11 @@
   <PropertyGroup />
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
-      <WarningLevel>Level3</WarningLevel>
+      <WarningLevel>Level4</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
-      <ConformanceMode>true</ConformanceMode>
+      <ConformanceMode>false</ConformanceMode>
+      <DisableSpecificWarnings>4100;4634;4400</DisableSpecificWarnings>
     </ClCompile>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -115,6 +116,19 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Kraj.cpp" />
+    <ClCompile Include="main.cpp" />
+    <ClCompile Include="Obec.cpp" />
+    <ClCompile Include="Okres.cpp" />
+    <ClCompile Include="UzemnyCelok.cpp" />
+    <ClCompile Include="VyssiUzemnyCelok.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Kraj.h" />
+    <ClInclude Include="Obec.h" />
+    <ClInclude Include="Okres.h" />
+    <ClInclude Include="UzemnyCelok.h" />
+    <ClInclude Include="VyssiUzemnyCelok.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
