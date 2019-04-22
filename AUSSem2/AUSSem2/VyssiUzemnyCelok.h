@@ -1,10 +1,13 @@
 #pragma once
 #include "UzemnyCelok.h"
+#include "structures/heap_monitor.h"
+
 class VyssiUzemnyCelok :
 	public UzemnyCelok
 {
+
 public:
-	VyssiUzemnyCelok();
+	VyssiUzemnyCelok(string nazov, int pocZapVol, int pocVydOb, double perUcVol, int pocOdovOb);
 	virtual ~VyssiUzemnyCelok();
 };
 

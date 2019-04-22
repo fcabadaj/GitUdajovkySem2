@@ -116,17 +116,33 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="DataManazer.cpp" />
+    <ClCompile Include="Kandidat.cpp" />
     <ClCompile Include="Kraj.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Obec.cpp" />
     <ClCompile Include="Okres.cpp" />
+    <ClCompile Include="structures\ds_routines.cpp" />
+    <ClCompile Include="structures\structure.cpp" />
+    <ClCompile Include="structures\vector\vector.cpp" />
     <ClCompile Include="UzemnyCelok.cpp" />
     <ClCompile Include="VyssiUzemnyCelok.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="DataManazer.h" />
+    <ClInclude Include="Kandidat.h" />
     <ClInclude Include="Kraj.h" />
     <ClInclude Include="Obec.h" />
     <ClInclude Include="Okres.h" />
+    <ClInclude Include="structures\array\array.h" />
+    <ClInclude Include="structures\ds_routines.h" />
+    <ClInclude Include="structures\heap_monitor.h" />
+    <ClInclude Include="structures\list\array_list.h" />
+    <ClInclude Include="structures\list\linked_list.h" />
+    <ClInclude Include="structures\list\list.h" />
+    <ClInclude Include="structures\structure.h" />
+    <ClInclude Include="structures\table\treap.h" />
+    <ClInclude Include="structures\vector\vector.h" />
     <ClInclude Include="UzemnyCelok.h" />
     <ClInclude Include="VyssiUzemnyCelok.h" />
   </ItemGroup>

@@ -1,8 +1,8 @@
 #include "Kraj.h"
+#include "structures/heap_monitor.h"
 
-
-
-Kraj::Kraj()
+Kraj::Kraj(string nazov, int pocZapVol, int pocVydOb, double perUcVol, int pocOdovOb):
+	VyssiUzemnyCelok(nazov, pocZapVol, pocVydOb, perUcVol, pocOdovOb)
 {
 }
 
