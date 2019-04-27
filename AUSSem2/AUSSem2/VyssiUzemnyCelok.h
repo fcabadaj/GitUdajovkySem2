@@ -7,7 +7,7 @@ class VyssiUzemnyCelok :
 {
 
 public:
-	VyssiUzemnyCelok(string nazov, int pocZapVol, int pocVydOb, double perUcVol, int pocOdovOb);
+	VyssiUzemnyCelok(string nazov, int pocZapVol, int pocVydOb, double perUcVol, int pocOdovOb, Array<Kandidat*> *zoznamKand);
 	virtual ~VyssiUzemnyCelok();
 };
 

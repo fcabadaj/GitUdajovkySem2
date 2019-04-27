@@ -33,7 +33,7 @@ private:
 	void nacitajOkresy();
 	void nacitajKraje();
 
-	string odstranDiakritiku(string s);	
+	void odstranDiakritiku(string & s);	
 
 public:
 	DataManazer();

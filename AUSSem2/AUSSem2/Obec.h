@@ -16,7 +16,7 @@ private:
 	int kodObce_;
 
 public:
-	Obec(string nazov, int pZapVol, int pVydOb, int perUcVol, int pocOdoObal, string nOkresu, string nKraja, int kodObce);
+	Obec(string nazov, int pZapVol, int pVydOb, double perUcVol, int pocOdoObal, Array<Kandidat*> *zoznamKand, string nOkresu, string nKraja, int kodObce);
 	~Obec();
 };
 

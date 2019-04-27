@@ -28,6 +28,12 @@
     <Filter Include="structures\table">
       <UniqueIdentifier>{721754c4-1108-4da5-b600-b26faee1beea}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Kriteria">
+      <UniqueIdentifier>{a43e41da-4505-49bf-8729-7201a3bd5e12}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Filtre">
+      <UniqueIdentifier>{52dd9198-82cc-4529-8664-6eeeeeeea394}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -112,6 +118,15 @@
     </ClInclude>
     <ClInclude Include="structures\table\treap.h">
       <Filter>structures\table</Filter>
+    </ClInclude>
+    <ClInclude Include="Kriterium.h">
+      <Filter>Kriteria</Filter>
+    </ClInclude>
+    <ClInclude Include="Filter.h">
+      <Filter>Filtre</Filter>
+    </ClInclude>
+    <ClInclude Include="KriteriumNazov.h">
+      <Filter>Kriteria</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

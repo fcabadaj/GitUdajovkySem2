@@ -62,14 +62,16 @@ void DataManazer::nacitajData()
 	nacitajKandidatov();
 	nacitajObce();
 	nacitajOkresy();
+	nacitajKraje();
 }
 
 void DataManazer::nacitajObce()
 {
 	ifstream subor;
-	int i = 0;
+	int counter = 0;
 	string myString;
 	stringstream zaznam;
+	
 
 	string	nazovObce;
 	string	nazovOkresu;
@@ -80,16 +82,28 @@ void DataManazer::nacitajObce()
 	double	percUcastVolicov;
 	int		pocetOdovzdanychObalok;
 
+	ifstream suborKand;
+	string menoKand;
+	string priezviskoKand;
+	int pocetPlatnychHlasov;
+	int poradoveCislo;
 
 	subor.open("excel/suhrnneVysledkyObce1Kolo.csv");
+	suborKand.open("excel/pocetAPodielhlasovZaObce1Kolo.csv");
 	setlocale(LC_ALL, "");
+	
+	for (unsigned int i = 0; i < 4; i++)
+	{
+		getline(suborKand, myString);
+	}
 
 	while (getline(subor, myString))
 	{
-		i++;
-		if (i > 5)
+		counter++;
+		if (counter > 5)
 		{
-			myString = odstranDiakritiku(myString);
+			odstranDiakritiku(myString);
+			//cout << myString << endl;
 			zaznam = stringstream(myString);
 			
 			//Kod kraja
@@ -149,23 +163,82 @@ void DataManazer::nacitajObce()
 			getline(zaznam, myString, ';');
 			getline(zaznam, myString, ';');
 
-			Obec *obec = new Obec(nazovObce, pocetZapVolicov, pocetVydObalok, percUcastVolicov, pocetOdovzdanychObalok, nazovOkresu, nazovKraja, kodObce);
+			Array<Kandidat*> *zoznamKandidatov1Kolo = new Array<Kandidat*>(15);
+			for (unsigned int i = 0; i < zoznamKandidatov1Kolo->size(); i++)
+			{	
+				getline(suborKand, myString);
+				odstranDiakritiku(myString);
+				//cout << myString << endl;
+
+				zaznam = stringstream(myString);
+
+				//preskoc kod kraja
+				getline(zaznam, myString, ';');
+				//presko nazov Kraja
+				getline(zaznam, myString, ';');
+				//presko kod uzemia
+				getline(zaznam, myString, ';');
+				//presko nazov uzemia
+				getline(zaznam, myString, ';');
+				//presko kod okresu
+				getline(zaznam, myString, ';');
+				//presko nazov okresu
+				getline(zaznam, myString, ';');
+				//presko kod obce
+				getline(zaznam, myString, ';');
+				//presko nazov obce
+				getline(zaznam, myString, ';');
+
+				//poradie na hlas. listku
+				getline(zaznam, myString, ';');
+				myString.erase(remove_if(myString.begin(), myString.end(), isspace), myString.end());
+				poradoveCislo = stoi(myString);
+
+				//meno 
+				getline(zaznam, myString, ';');
+				menoKand = myString;
+
+				//priezvisko
+				getline(zaznam, myString, ';');
+				priezviskoKand = myString;
+
+				//pocet platnych hlasov
+				getline(zaznam, myString, ';');
+				myString.erase(remove_if(myString.begin(), myString.end(), isspace), myString.end());
+				pocetPlatnychHlasov = stoi(myString);
+
+				//preskoc ostatne
+				getline(zaznam, myString, ';');
+				getline(zaznam, myString, ';');
+
+				zoznamKandidatov1Kolo->operator[](i) = new Kandidat(poradoveCislo, menoKand, priezviskoKand, pocetPlatnychHlasov);
+			}
+			
+			Obec *obec = new Obec(nazovObce, pocetZapVolicov, pocetVydObalok, percUcastVolicov, pocetOdovzdanychObalok, zoznamKandidatov1Kolo, nazovOkresu, nazovKraja, kodObce);
 
 			vysledkyObci1Kolo_->insert(kodObce,obec);
 		}
 	}
 
 	subor.close();
+	suborKand.close();
 
 	subor.open("excel/suhrnneVysledkyObce2Kolo.csv");
+	suborKand.open("excel/pocetAPodielhlasovZaObce1Kolo.csv");
 
-	i = 0;
+	for (unsigned int i = 0; i < 4; i++)
+	{
+		getline(suborKand, myString);
+	}
+
+	counter = 0;
 	while (getline(subor, myString))
 	{
-		i++;
-		if (i > 5)
+		counter++;
+		if (counter > 5)
 		{
-			myString = odstranDiakritiku(myString);
+			odstranDiakritiku(myString);
+			//cout << myString << endl;
 			zaznam = stringstream(myString);
 
 			//Kod kraja
@@ -225,19 +298,71 @@ void DataManazer::nacitajObce()
 			getline(zaznam, myString, ';');
 			getline(zaznam, myString, ';');
 
-			Obec *obec = new Obec(nazovObce, pocetZapVolicov, pocetVydObalok, percUcastVolicov, pocetOdovzdanychObalok, nazovOkresu, nazovKraja, kodObce);
+			Array<Kandidat*> *zoznamKandidatov2Kolo = new Array<Kandidat*>(2);
+			for (unsigned int i = 0; i < zoznamKandidatov2Kolo->size(); i++)
+			{
+				getline(suborKand, myString);
+				odstranDiakritiku(myString);
+				//cout << myString << endl;
+
+				zaznam = stringstream(myString);
+
+				//preskoc kod kraja
+				getline(zaznam, myString, ';');
+				//presko nazov Kraja
+				getline(zaznam, myString, ';');
+				//presko kod uzemia
+				getline(zaznam, myString, ';');
+				//presko nazov uzemia
+				getline(zaznam, myString, ';');
+				//presko kod okresu
+				getline(zaznam, myString, ';');
+				//presko nazov okresu
+				getline(zaznam, myString, ';');
+				//presko kod obce
+				getline(zaznam, myString, ';');
+				//presko nazov obce
+				getline(zaznam, myString, ';');
+
+				//poradie na hlas. listku
+				getline(zaznam, myString, ';');
+				myString.erase(remove_if(myString.begin(), myString.end(), isspace), myString.end());
+				poradoveCislo = stoi(myString);
+
+				//meno 
+				getline(zaznam, myString, ';');
+				menoKand = myString;
+
+				//priezvisko
+				getline(zaznam, myString, ';');
+				priezviskoKand = myString;
+
+				//pocet platnych hlasov
+				getline(zaznam, myString, ';');
+				myString.erase(remove_if(myString.begin(), myString.end(), isspace), myString.end());
+				pocetPlatnychHlasov = stoi(myString);
+
+				//preskoc ostatne
+				getline(zaznam, myString, ';');
+				getline(zaznam, myString, ';');
+
+				zoznamKandidatov2Kolo->operator[](i) = new Kandidat(poradoveCislo, menoKand, priezviskoKand, pocetPlatnychHlasov);
+			}			
+
+			Obec *obec = new Obec(nazovObce, pocetZapVolicov, pocetVydObalok, percUcastVolicov, pocetOdovzdanychObalok, zoznamKandidatov2Kolo, nazovOkresu, nazovKraja, kodObce);
 
 			vysledkyObci2Kolo_->insert(kodObce, obec);
 		}
 	}
 
 	subor.close();
+	suborKand.close();
 }
 
 void DataManazer::nacitajKandidatov()
 {
 	ifstream subor;
-	int i = 0;
+	int counter = 0;
 	string myString;
 	stringstream zaznam;
 	int poradoveCislo;
@@ -249,10 +374,11 @@ void DataManazer::nacitajKandidatov()
 
 	while (getline(subor, myString))
 	{
-		i++;
-		if (i > 4)
+		counter++;
+		if (counter > 4)
 		{
-			myString = odstranDiakritiku(myString);
+			odstranDiakritiku(myString);
+			//cout << myString << endl;
 			zaznam = stringstream(myString);
 
 			getline(zaznam, myString, ';');
@@ -272,14 +398,15 @@ void DataManazer::nacitajKandidatov()
 	subor.close();
 
 	subor.open("excel/zoznamKandidatov2Kolo.csv");
-	i = 0;
+	counter = 0;
 
 	while (getline(subor, myString))
 	{
-		i++;
-		if (i > 4)
+		counter++;
+		if (counter > 4)
 		{
-			myString = odstranDiakritiku(myString);
+			odstranDiakritiku(myString);
+			//cout << myString << endl;
 			zaznam = stringstream(myString);
 
 			getline(zaznam, myString, ';');
@@ -302,7 +429,7 @@ void DataManazer::nacitajKandidatov()
 void DataManazer::nacitajOkresy()
 {
 	ifstream subor;
-	int i = 0;
+	int counter = 0;
 	string myString;
 	stringstream zaznam;
 
@@ -314,15 +441,28 @@ void DataManazer::nacitajOkresy()
 	double	percUcastVolicov;
 	int		pocetOdovzdanychObalok;
 
+	ifstream suborKand;
+	string menoKand;
+	string priezviskoKand;
+	int pocetPlatnychHlasov;
+	int poradoveCislo;
+
 	subor.open("excel/suhrnneVysledkyOkresy1Kolo.csv");
+	subor.open("excel/pocetAPodielhlasovZaOkresy2Kolo.csv");
 	setlocale(LC_ALL, "");
+
+	for (unsigned int i = 0; i < 8; i++)
+	{
+		getline(suborKand, myString);
+	}
 
 	while (getline(subor, myString))
 	{
-		i++;
-		if (i > 4)
+		counter++;
+		if (counter > 4)
 		{
-			myString = odstranDiakritiku(myString);
+			odstranDiakritiku(myString);
+			//cout << myString << endl;
 			zaznam = stringstream(myString);
 
 			//Kod kraja
@@ -374,7 +514,60 @@ void DataManazer::nacitajOkresy()
 			getline(zaznam, myString, ';');
 			getline(zaznam, myString, ';');
 
-			Okres *okres = new Okres(nazovOkresu, pocetOdovzdanychObalok, pocetVydObalok, percUcastVolicov, pocetOdovzdanychObalok, kodOkresu, nazovKraja);
+			Array<Kandidat*> *zoznamKandidatov1Kolo = new Array<Kandidat*>(15);
+			
+			for (unsigned int i = 0; i < zoznamKandidatov1Kolo->size(); i++)
+			{
+				getline(suborKand, myString);
+				odstranDiakritiku(myString);
+				//cout << myString << endl;
+
+				zaznam = stringstream(myString);
+
+				//preskoc kod kraja
+				getline(zaznam, myString, ';');
+				//presko nazov Kraja
+				getline(zaznam, myString, ';');
+				//presko kod uzemia
+				getline(zaznam, myString, ';');
+				//presko nazov uzemia
+				getline(zaznam, myString, ';');
+				//presko kod okresu
+				getline(zaznam, myString, ';');
+				//presko nazov okresu
+				getline(zaznam, myString, ';');
+
+				//poradie na hlas. listku
+				getline(zaznam, myString, ';');
+				myString.erase(remove_if(myString.begin(), myString.end(), isspace), myString.end());
+				poradoveCislo = stoi(myString);
+
+				//meno 
+				getline(zaznam, myString, ';');
+				menoKand = myString;
+
+				//priezvisko
+				getline(zaznam, myString, ';');
+				priezviskoKand = myString;
+
+				//pocet platnych hlasov
+				getline(zaznam, myString, ';');
+				myString.erase(remove_if(myString.begin(), myString.end(), isspace), myString.end());
+				pocetPlatnychHlasov = stoi(myString);
+
+				//preskoc ostatne
+				getline(zaznam, myString, ';');
+				getline(zaznam, myString, ';');
+				getline(zaznam, myString, ';');
+				getline(zaznam, myString, ';');
+				getline(zaznam, myString, ';');
+				getline(zaznam, myString, ';');
+
+
+				zoznamKandidatov1Kolo->operator[](i) = new Kandidat(poradoveCislo, menoKand, priezviskoKand, pocetPlatnychHlasov);
+			}
+
+			Okres *okres = new Okres(nazovOkresu, pocetOdovzdanychObalok, pocetVydObalok, percUcastVolicov, pocetOdovzdanychObalok, zoznamKandidatov1Kolo, kodOkresu, nazovKraja);
 
 			vysledkyOkresov1Kolo_->insert(kodOkresu,okres);
 			
@@ -383,15 +576,22 @@ void DataManazer::nacitajOkresy()
 	}
 
 	subor.close();
-
 	subor.open("excel/suhrnneVysledkyOkresy2Kolo.csv");
-	i = 0;
+	subor.open("excel/pocetAPodielhlasovZaOkresy2Kolo.csv");
+
+	for (unsigned int i = 0; i < 7; i++)
+	{
+		getline(suborKand, myString);
+	}
+
+	counter = 0;
 	while (getline(subor, myString))
 	{
-		i++;
-		if (i > 4)
+		counter++;
+		if (counter > 4)
 		{
-			myString = odstranDiakritiku(myString);
+			odstranDiakritiku(myString);
+			//cout << myString << endl;
 			zaznam = stringstream(myString);
 
 			//Kod kraja
@@ -443,7 +643,59 @@ void DataManazer::nacitajOkresy()
 			getline(zaznam, myString, ';');
 			getline(zaznam, myString, ';');
 
-			Okres *okres = new Okres(nazovOkresu, pocetOdovzdanychObalok, pocetVydObalok, percUcastVolicov, pocetOdovzdanychObalok, kodOkresu, nazovKraja);
+			Array<Kandidat*> *zoznamKandidatov2Kolo = new Array<Kandidat*>(2);
+			for (unsigned int i = 0; i < zoznamKandidatov2Kolo->size(); i++)
+			{
+				getline(suborKand, myString);
+				odstranDiakritiku(myString);
+				//cout << myString << endl;
+
+				zaznam = stringstream(myString);
+
+				//preskoc kod kraja
+				getline(zaznam, myString, ';');
+				//presko nazov Kraja
+				getline(zaznam, myString, ';');
+				//presko kod uzemia
+				getline(zaznam, myString, ';');
+				//presko nazov uzemia
+				getline(zaznam, myString, ';');
+				//presko kod okresu
+				getline(zaznam, myString, ';');
+				//presko nazov okresu
+				getline(zaznam, myString, ';');
+
+				//poradie na hlas. listku
+				getline(zaznam, myString, ';');
+				myString.erase(remove_if(myString.begin(), myString.end(), isspace), myString.end());
+				poradoveCislo = stoi(myString);
+
+				//meno 
+				getline(zaznam, myString, ';');
+				menoKand = myString;
+
+				//priezvisko
+				getline(zaznam, myString, ';');
+				priezviskoKand = myString;
+
+				//pocet platnych hlasov
+				getline(zaznam, myString, ';');
+				myString.erase(remove_if(myString.begin(), myString.end(), isspace), myString.end());
+				pocetPlatnychHlasov = stoi(myString);
+
+				//preskoc ostatne
+				getline(zaznam, myString, ';');
+				getline(zaznam, myString, ';');
+				getline(zaznam, myString, ';');
+				getline(zaznam, myString, ';');
+				getline(zaznam, myString, ';');
+				getline(zaznam, myString, ';');
+
+
+				zoznamKandidatov2Kolo->operator[](i) = new Kandidat(poradoveCislo, menoKand, priezviskoKand, pocetPlatnychHlasov);
+			}			
+
+			Okres *okres = new Okres(nazovOkresu, pocetOdovzdanychObalok, pocetVydObalok, percUcastVolicov, pocetOdovzdanychObalok, zoznamKandidatov2Kolo, kodOkresu, nazovKraja);
 
 			vysledkyOkresov2Kolo_->insert(kodOkresu, okres);
 		}
@@ -454,9 +706,245 @@ void DataManazer::nacitajOkresy()
 
 void DataManazer::nacitajKraje()
 {
+	ifstream subor;
+	ifstream suborKand;
+	int counter = 0;
+	string myString;
+	stringstream zaznam;
+
+	string	nazovKraja;
+	int		kodKraja;
+	int		pocetZapVolicov;
+	int		pocetVydObalok;
+	double	percUcastVolicov;
+	int		pocetOdovzdanychObalok;
+
+	string menoKand;
+	string priezviskoKand;
+	int pocetPlatnychHlasov;
+	int poradoveCislo;
+
+	subor.open("excel/suhrnneVysledkyKraje1Kolo.csv");
+	suborKand.open("excel/pocetAPodielhlasovZaKraje1Kolo.csv");
+	setlocale(LC_ALL, "");
+
+	for (unsigned int i = 0; i < 8; i++)
+	{
+		getline(suborKand, myString);
+	}
+
+	while (getline(subor, myString))
+	{
+		counter++;
+		if (counter > 5)
+		{
+			odstranDiakritiku(myString);
+			//cout << myString << endl;
+			zaznam = stringstream(myString);
+
+			//Kod kraja
+			getline(zaznam, myString, ';');
+			myString.erase(remove_if(myString.begin(), myString.end(), isspace), myString.end());
+			kodKraja = stoi(myString);
+
+			//Nazov kraja
+			getline(zaznam, myString, ';');
+			nazovKraja = myString;
+
+			//preskoc pocet okrskov
+			getline(zaznam, myString, ';');
+
+			//pocet zapisanych volicov
+			getline(zaznam, myString, ';');
+			myString.erase(remove_if(myString.begin(), myString.end(), isspace), myString.end());
+			pocetZapVolicov = stoi(myString);
+
+			//pocet vydanych obalok
+			getline(zaznam, myString, ';');
+			myString.erase(remove_if(myString.begin(), myString.end(), isspace), myString.end());
+			pocetVydObalok = stoi(myString);
+
+			//ucast
+			getline(zaznam, myString, ';');
+			percUcastVolicov = stod(myString);
+
+			//pocet odovzdanych obalok
+			getline(zaznam, myString, ';');
+			myString.erase(remove_if(myString.begin(), myString.end(), isspace), myString.end());
+			pocetOdovzdanychObalok = stoi(myString);
+
+			//ignorun dalsie zaznamy
+			getline(zaznam, myString, ';');
+			getline(zaznam, myString, ';');
+			getline(zaznam, myString, ';');
+
+			Array<Kandidat*> *zoznamKandidatov1Kolo = new Array<Kandidat*>(15);
+			
+			for (unsigned int i = 0; i < zoznamKandidatov1Kolo->size(); i++)
+			{
+
+				getline(suborKand, myString);
+				odstranDiakritiku(myString);
+				//cout << myString << endl;
+
+				zaznam = stringstream(myString);
+
+				//preskoc kod kraja
+				getline(zaznam, myString, ';');
+
+				//presko nazov Kraja
+				getline(zaznam, myString, ';');
+
+				//poradie na hlas. listku
+				getline(zaznam, myString, ';');
+				myString.erase(remove_if(myString.begin(), myString.end(), isspace), myString.end());
+				poradoveCislo = stoi(myString);
+
+				//meno 
+				getline(zaznam, myString, ';');
+				menoKand = myString;
+
+				//priezvisko
+				getline(zaznam, myString, ';');
+				priezviskoKand = myString;
+
+				//pocet platnych hlasov
+				getline(zaznam, myString, ';');
+				myString.erase(remove_if(myString.begin(), myString.end(), isspace), myString.end());
+				pocetPlatnychHlasov = stoi(myString);
+
+				//preskoc ostatne
+				getline(zaznam, myString, ';');
+				getline(zaznam, myString, ';');
+				getline(zaznam, myString, ';');
+				getline(zaznam, myString, ';');
+				getline(zaznam, myString, ';');
+				getline(zaznam, myString, ';');
+
+				zoznamKandidatov1Kolo->operator[](i) = new Kandidat(poradoveCislo, menoKand, priezviskoKand, pocetPlatnychHlasov);
+			}
+		
+
+			Kraj *kraj = new Kraj(nazovKraja,pocetZapVolicov,pocetVydObalok,percUcastVolicov,pocetOdovzdanychObalok, zoznamKandidatov1Kolo, kodKraja);
+
+			vysledkyKrajov1Kolo_->insert(kodKraja,kraj);
+
+		}
+
+	}
+
+	subor.close();
+	suborKand.close();
+
+	subor.open("excel/suhrnneVysledkyKraje2Kolo.csv");
+	suborKand.open("excel/pocetAPodielhlasovZaKraje2Kolo.csv");
+	counter = 0;
+
+	for (unsigned int i = 0; i < 8; i++)
+	{
+		getline(suborKand, myString);
+	}
+
+	while (getline(subor, myString))
+	{
+		counter++;
+		if (counter > 5)
+		{
+			odstranDiakritiku(myString);
+			//cout << myString << endl;
+			zaznam = stringstream(myString);
+
+			//Kod kraja
+			getline(zaznam, myString, ';');
+			myString.erase(remove_if(myString.begin(), myString.end(), isspace), myString.end());
+			kodKraja = stoi(myString);
+
+			//Nazov kraja
+			getline(zaznam, myString, ';');
+			nazovKraja = myString;
+
+			//preskoc pocet okrskov
+			getline(zaznam, myString, ';');
+
+			//pocet zapisanych volicov
+			getline(zaznam, myString, ';');
+			myString.erase(remove_if(myString.begin(), myString.end(), isspace), myString.end());
+			pocetZapVolicov = stoi(myString);
+
+			//pocet vydanych obalok
+			getline(zaznam, myString, ';');
+			myString.erase(remove_if(myString.begin(), myString.end(), isspace), myString.end());
+			pocetVydObalok = stoi(myString);
+
+			//ucast
+			getline(zaznam, myString, ';');
+			percUcastVolicov = stod(myString);
+
+			//pocet odovzdanych obalok
+			getline(zaznam, myString, ';');
+			myString.erase(remove_if(myString.begin(), myString.end(), isspace), myString.end());
+			pocetOdovzdanychObalok = stoi(myString);
+
+			//ignorun dalsie zaznamy
+			getline(zaznam, myString, ';');
+			getline(zaznam, myString, ';');
+			getline(zaznam, myString, ';');
+						
+			Array<Kandidat*> *zoznamKandidatov2Kolo = new Array<Kandidat*>(2);
+			for (unsigned int i = 0; i < zoznamKandidatov2Kolo->size(); i++)
+			{
+				getline(suborKand, myString);
+				odstranDiakritiku(myString);
+				//cout << myString << endl;
+
+				zaznam = stringstream(myString);
+
+				//preskoc kod kraja
+				getline(zaznam, myString, ';');
+
+				//presko nazov Kraja
+				getline(zaznam, myString, ';');
+
+				//poradie na hlas. listku
+				getline(zaznam, myString, ';');
+				myString.erase(remove_if(myString.begin(), myString.end(), isspace), myString.end());
+				poradoveCislo = stoi(myString);
+
+				//meno 
+				getline(zaznam, myString, ';');
+				menoKand = myString;
+
+				//priezvisko
+				getline(zaznam, myString, ';');
+				priezviskoKand = myString;
+
+				//pocet platnych hlasov
+				getline(zaznam, myString, ';');
+				myString.erase(remove_if(myString.begin(), myString.end(), isspace), myString.end());
+				pocetPlatnychHlasov = stoi(myString);
+
+				//preskoc ostatne
+				getline(zaznam, myString, ';');
+				getline(zaznam, myString, ';');
+				getline(zaznam, myString, ';');
+				getline(zaznam, myString, ';');
+				getline(zaznam, myString, ';');
+				getline(zaznam, myString, ';');
+
+				zoznamKandidatov2Kolo->operator[](i) = new Kandidat(poradoveCislo, menoKand, priezviskoKand, pocetPlatnychHlasov);
+			}			
+
+			Kraj *kraj = new Kraj(nazovKraja, pocetZapVolicov, pocetVydObalok, percUcastVolicov, pocetOdovzdanychObalok, zoznamKandidatov2Kolo, kodKraja);
+
+			vysledkyKrajov2Kolo_->insert(kodKraja, kraj);
+		}
+	}
+
+	suborKand.close();
+	subor.close();
 }
 
-string DataManazer::odstranDiakritiku(string s)
+void DataManazer::odstranDiakritiku(string & s)
 {
 	replace(s.begin(), s.end(), 'á', 'a');
 	replace(s.begin(), s.end(), 'Á', 'A');
@@ -487,6 +975,4 @@ string DataManazer::odstranDiakritiku(string s)
 	replace(s.begin(), s.end(), 'Ý', 'Y');
 	replace(s.begin(), s.end(), 'ž', 'z');
 	replace(s.begin(), s.end(), 'Ž', 'Z');
-
-	return s;
 }

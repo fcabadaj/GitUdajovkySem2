@@ -130,8 +130,11 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="DataManazer.h" />
+    <ClInclude Include="Filter.h" />
     <ClInclude Include="Kandidat.h" />
     <ClInclude Include="Kraj.h" />
+    <ClInclude Include="Kriterium.h" />
+    <ClInclude Include="KriteriumNazov.h" />
     <ClInclude Include="Obec.h" />
     <ClInclude Include="Okres.h" />
     <ClInclude Include="structures\array\array.h" />
