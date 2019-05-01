@@ -1,11 +1,10 @@
 #include "VyssiUzemnyCelok.h"
 #include "structures/heap_monitor.h"
 
-VyssiUzemnyCelok::VyssiUzemnyCelok(string nazov, int pocZapVol, int pocVydOb, double perUcVol, int pocOdovOb, Array<Kandidat*> *zoznamKand):
-	UzemnyCelok(nazov, pocZapVol,pocVydOb,perUcVol,pocOdovOb, zoznamKand)
+VyssiUzemnyCelok::VyssiUzemnyCelok(string nazov,int kod, DataKolo *dataKolo1, DataKolo *dataKolo2):
+	UzemnyCelok(nazov,kod, dataKolo1, dataKolo2)
 {
 }
-
 
 VyssiUzemnyCelok::~VyssiUzemnyCelok()
 {

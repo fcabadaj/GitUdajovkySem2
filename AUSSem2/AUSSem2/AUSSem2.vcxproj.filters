@@ -1,10 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="Source Files">
-      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
-      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
-    </Filter>
     <Filter Include="Header Files">
       <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
       <Extensions>h;hh;hpp;hxx;hm;inl;inc;ipp;xsd</Extensions>
@@ -33,6 +29,13 @@
     </Filter>
     <Filter Include="Filtre">
       <UniqueIdentifier>{52dd9198-82cc-4529-8664-6eeeeeeea394}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Vyberove Kriteria">
+      <UniqueIdentifier>{d9c5e2c9-be19-42eb-b721-877865a4ded0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -69,6 +72,9 @@
     <ClCompile Include="structures\ds_routines.cpp">
       <Filter>structures</Filter>
     </ClCompile>
+    <ClCompile Include="DataKolo.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="UzemnyCelok.h">
@@ -81,9 +87,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Okres.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Kraj.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Kandidat.h">
@@ -127,6 +130,60 @@
     </ClInclude>
     <ClInclude Include="KriteriumNazov.h">
       <Filter>Kriteria</Filter>
+    </ClInclude>
+    <ClInclude Include="KriteriumPrislusnostObce.h">
+      <Filter>Kriteria</Filter>
+    </ClInclude>
+    <ClInclude Include="KriteriumVolici.h">
+      <Filter>Kriteria</Filter>
+    </ClInclude>
+    <ClInclude Include="DataKolo.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="KriteriumVydaneObalky.h">
+      <Filter>Kriteria</Filter>
+    </ClInclude>
+    <ClInclude Include="KriteriumUcast.h">
+      <Filter>Kriteria</Filter>
+    </ClInclude>
+    <ClInclude Include="KriteriumOdovzdaneObalky.h">
+      <Filter>Kriteria</Filter>
+    </ClInclude>
+    <ClInclude Include="KriteriumHlasyOdovzdane.h">
+      <Filter>Kriteria</Filter>
+    </ClInclude>
+    <ClInclude Include="KriteriumMeno.h">
+      <Filter>Kriteria</Filter>
+    </ClInclude>
+    <ClInclude Include="Kraj.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Filterfi1.h">
+      <Filter>Filtre</Filter>
+    </ClInclude>
+    <ClInclude Include="FilterFi2.h">
+      <Filter>Filtre</Filter>
+    </ClInclude>
+    <ClInclude Include="FilterNazov.h">
+      <Filter>Filtre</Filter>
+    </ClInclude>
+    <ClInclude Include="FilterVolici.h">
+      <Filter>Filtre</Filter>
+    </ClInclude>
+    <ClInclude Include="KriteriumHlasyZiskane.h">
+      <Filter>Kriteria</Filter>
+    </ClInclude>
+    <ClInclude Include="FilterUcast.h">
+      <Filter>Filtre</Filter>
+    </ClInclude>
+    <ClInclude Include="FilterPrislusnostObce.h">
+      <Filter>Filtre</Filter>
+    </ClInclude>
+    <ClInclude Include="FilterMeno.h">
+      <Filter>Filtre</Filter>
+    </ClInclude>
+    <ClInclude Include="VyberoveKriterium.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

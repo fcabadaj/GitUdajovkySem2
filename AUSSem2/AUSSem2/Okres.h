@@ -8,10 +8,10 @@ class Okres :
 
 private:
 	string nazovKraja_;
-	int kodOkresu_;
 
 public:
-	Okres(string nazov, int pocZapVol, int pocVydOb, double perUcVol, int pocOdovOb, Array<Kandidat*> *zoznamKand, int kodOkresu, string nazovKraja);
+	Okres(string nazov, DataKolo *dataKolo1, DataKolo *dataKolo2, int kodOkresu, string nazovKraja);
 	~Okres();
+	void vypisSa(int kolo);
 };
 

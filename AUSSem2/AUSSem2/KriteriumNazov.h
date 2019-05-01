@@ -9,7 +9,7 @@ class KriteriumNazov :
 public:
 	KriteriumNazov();
 	~KriteriumNazov();
-	string evaluate(const UzemnyCelok& uc) override { return uc.getNazov(); };
+	string evaluate(const UzemnyCelok& uc) const override;
 };
 
 KriteriumNazov::KriteriumNazov()
@@ -18,4 +18,9 @@ KriteriumNazov::KriteriumNazov()
 
 KriteriumNazov::~KriteriumNazov()
 {
+}
+
+inline string KriteriumNazov::evaluate(const UzemnyCelok & uc) const
+{
+	 return uc.getNazov(); 
 }

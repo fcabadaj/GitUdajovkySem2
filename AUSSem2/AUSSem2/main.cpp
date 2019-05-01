@@ -1,35 +1,77 @@
 #pragma once
+#include "structures/heap_monitor.h"
 #include "DataManazer.h"
-#include <fstream>
-#include <iostream>
-#include <string>
-#include "Obec.h"
-#include "structures/table/treap.h"
-#include "KriteriumNazov.h"
 
 using namespace std;
 using namespace structures;
 
+
+void menu(int &c);
+
 int main()
 {
 	initHeapMonitor();
+	bool nacitane = false;
+
 	DataManazer *dataMng = new DataManazer();
+	int choice = 155;
 
-	KriteriumNazov *kn = new KriteriumNazov();
+	menu(choice);
 
-	Obec *obec = new Obec("jebo", 132, 123, 1, 12, new Array<Kandidat*>(10), "hakunamatata", "wuhuhu", 65465);
-	Obec *obec2 = new Obec("egojebo", 132, 123, 1, 12, new Array<Kandidat*>(10), "hakunamatata", "wuhuhu", 65465);
-	Obec *obec3 = new Obec("aljbgfnajldkajebo", 132, 123, 1, 12, new Array<Kandidat*>(10), "hakunamatata", "wuhuhu", 65465);
-	cout << kn->evaluate(*obec) << endl;
-	cout << kn->evaluate(*obec2) << endl;
-	cout << kn->evaluate(*obec3) << endl;
-	system("PAUSE");
+	while (choice != 0)
+	{		
+		switch (choice)
+		{	
+		case 0:
+			
+			return 0;
+			break;
 
-	//dataMng->nacitajData();
+		case 1:
+			dataMng->vypisInfOUzemnychJednotkach();
+			break;
+
+		case 10:
+			if (!nacitane)
+			{
+				cout << "Nacitavam data... \n";
+				dataMng->nacitajData();
+				nacitane = true;
+			}
+			else
+			{
+				cout << "Data uz sa raz nacitali, nemozno ich nacitat znova kvoli vzniku duplicit! \n";
+			}
+			break;
+
+		default:
+			break;
+		}
+		menu(choice);
+	}
 	
-	system("PAUSE");
-
+	cout << "Vymazavam data... \n";
 	delete dataMng;
 
 	return 0;
+}
+
+
+void menu(int &c)
+{
+	cout << "======================================================= \n";
+	cout << "stlac 0 - Ukoncenie programu \n";
+	cout << "stlac 1 - Vypis informacie o Obciach \n";
+	cout << "stlac 2 -  \n";
+	cout << "stlac 3 -  \n";
+	cout << "stlac 4 -  \n";
+	cout << "stlac 5 -  \n";
+	cout << "stlac 6 -  \n";
+	cout << "stlac 7 -  \n";
+	cout << "stlac 8 -  \n";
+	cout << "stlac 9 -  \n";
+	cout << "STLAC 10 - PRE NACITANIE UDAJOV ZO SUBOROV \n";
+	cout << "======================================================= \n";
+	cin >> c;
+	system("CLS");
 }

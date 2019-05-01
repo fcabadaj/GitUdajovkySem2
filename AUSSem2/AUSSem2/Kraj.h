@@ -7,10 +7,10 @@ class Kraj :
 {
 
 private:
-	int kodKraja_;
 
 public:
-	Kraj(string nazov, int pocZapVol, int pocVydOb, double perUcVol, int pocOdovOb, Array<Kandidat*> *zoznamKand, int kodKraja);
-	~Kraj();
+	Kraj(string nazov, DataKolo *dataKolo1, DataKolo *dataKolo2, int kodKraja);
+	~Kraj(); 
+	void vypisSa(int kolo);
 };
 
