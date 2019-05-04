@@ -37,6 +37,9 @@
       <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
       <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
     </Filter>
+    <Filter Include="structures\table\sorting">
+      <UniqueIdentifier>{f7af1695-c8fd-4b4f-aaf3-68541a300b36}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -184,6 +187,15 @@
     </ClInclude>
     <ClInclude Include="VyberoveKriterium.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="structures\table\sorting\quick_sort.h">
+      <Filter>structures\table\sorting</Filter>
+    </ClInclude>
+    <ClInclude Include="structures\table\unsorted_sequence_table.h">
+      <Filter>structures\table</Filter>
+    </ClInclude>
+    <ClInclude Include="structures\table\sequence_table.h">
+      <Filter>structures\table</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

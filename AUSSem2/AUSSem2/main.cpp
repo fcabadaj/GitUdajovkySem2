@@ -30,6 +30,13 @@ int main()
 		case 1:
 			dataMng->vypisInfOUzemnychJednotkach();
 			break;
+		case 2:
+			dataMng->zoradenieUzemnychJednotiek();
+			break;
+
+		case 9:
+			dataMng->test();
+			break;
 
 		case 10:
 			if (!nacitane)
@@ -61,15 +68,9 @@ void menu(int &c)
 {
 	cout << "======================================================= \n";
 	cout << "stlac 0 - Ukoncenie programu \n";
-	cout << "stlac 1 - Vypis informacie o Obciach \n";
-	cout << "stlac 2 -  \n";
-	cout << "stlac 3 -  \n";
-	cout << "stlac 4 -  \n";
-	cout << "stlac 5 -  \n";
-	cout << "stlac 6 -  \n";
-	cout << "stlac 7 -  \n";
-	cout << "stlac 8 -  \n";
-	cout << "stlac 9 -  \n";
+	cout << "stlac 1 - Vypis informacie o Uzemnom celku \n";
+	cout << "stlac 2 - Zoradenie uzemnych jednotiek \n";
+	cout << "stlac 9 - TEST \n";
 	cout << "STLAC 10 - PRE NACITANIE UDAJOV ZO SUBOROV \n";
 	cout << "======================================================= \n";
 	cin >> c;

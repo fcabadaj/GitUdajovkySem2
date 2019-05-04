@@ -14,8 +14,11 @@
 #include "FilterPrislusnostObce.h"
 #include "FilterUcast.h"
 #include "FilterVolici.h"
+#include "structures/table/sorting/quick_sort.h"
+#include "structures/table/unsorted_sequence_table.h"
 
 using namespace std;
+using namespace structures;
 
 DataManazer::DataManazer():
 zoznamKandidatov1Kolo_(new Treap<int,Kandidat*>),
@@ -358,9 +361,8 @@ void DataManazer::nacitajObce()
 
 			//preskoc ostatne
 			getline(zaznam2, myString2, ';');
-			getline(zaznam2, myString2, ';');
 
-			zoznamKandidatov2Kolo->operator[](i) = new Kandidat(poradoveCislo, menoKand, priezviskoKand, pocetPlatnychHlasov);
+			zoznamKandidatov2Kolo->operator[](i) = new Kandidat(poradoveCislo2, menoKand2, priezviskoKand2, pocetPlatnychHlasov2);
 		}
 							
 		DataKolo *dataKolo2 = new DataKolo(pocetZapVolicov2, pocetVydObalok2, percUcastVolicov2, pocetOdovzdanychObalok2, zoznamKandidatov2Kolo);
@@ -1284,6 +1286,34 @@ void DataManazer::vypisInfOUzemnychJednotkach()
 	delete kritNaz;
 	delete kritVol;
 	delete kritUcast;
+}
+
+void DataManazer::zoradenieUzemnychJednotiek()
+{
+}
+
+void DataManazer::test()
+{
+	KriteriumNazov *knazov = new KriteriumNazov();
+	KriteriumUcast *kucast = new KriteriumUcast(1);
+	UnsortedSequenceTable<int, UzemnyCelok*> *unsortedTable = new UnsortedSequenceTable<int, UzemnyCelok*>();
+
+	for (TableItem<int, Obec*> *obec : *vysledkyObci_)
+	{
+		unsortedTable->insert(obec->getKey(), obec->accessData());
+	}
+
+
+	this->usporiadajTabulku(*unsortedTable, *knazov);
+
+	for each (TableItem<int, UzemnyCelok*> *obec in *unsortedTable)
+	{
+		cout << obec->accessData()->getNazov() << endl;
+	}
+
+	delete knazov;
+	delete kucast;
+	delete unsortedTable;
 }
 
 void DataManazer::zobrazMenuInfOUzJedn()

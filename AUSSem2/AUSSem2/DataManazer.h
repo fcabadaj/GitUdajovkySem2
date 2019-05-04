@@ -10,6 +10,8 @@
 #include "structures/table/treap.h"
 #include "Okres.h"
 #include "Kraj.h"
+#include "Kriterium.h"
+#include "structures/table/unsorted_sequence_table.h"
 
 using namespace std;
 using namespace structures;
@@ -23,7 +25,7 @@ private:
 	Treap<int, Obec*> *vysledkyObci_;
 	Treap<int, Okres*> *vysledkyOkresov_;
 	Treap<int, Kraj*> *vysledkyKrajov_;
-
+	
 	void nacitajObce();
 	void nacitajKandidatov();
 	void nacitajOkresy();
@@ -38,7 +40,21 @@ public:
 	~DataManazer();
 	void nacitajData();
 	void vypisInfOUzemnychJednotkach();
-	
+	void zoradenieUzemnychJednotiek();
+	void test();
+	template<typename K, typename T, typename T2>
+	void usporiadajTabulku(UnsortedSequenceTable<K, T*> &table, Kriterium<T2, T> &kriterium);
 	
 };
 
+template<typename K, typename T, typename T2>
+inline void DataManazer::usporiadajTabulku(UnsortedSequenceTable<K, T*> &tab, Kriterium<T2, T> &krit)
+{
+	//vseobecna definicia quick sortu
+	QuickSort<K, T> *qs = new QuickSort<K, T>();
+
+	//volanie prerobenej metody sort
+	qs->sorth(tab, krit);
+
+	delete qs;
+}
