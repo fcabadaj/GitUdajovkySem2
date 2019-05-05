@@ -28,6 +28,6 @@ KriteriumPrislusnostObce::~KriteriumPrislusnostObce()
 
 inline bool KriteriumPrislusnostObce::evaluate(const Obec& obec) const
 {
-	return obec.patriDoVUC(vuc_);
+	return obec.patriDoVUC(*vuc_);
 	//return obec.getNazovOkresu() == vuc_->getNazov() || obec.getNazovKraja() == vuc_->getNazov();
 }

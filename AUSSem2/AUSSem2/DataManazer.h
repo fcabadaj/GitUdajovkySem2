@@ -43,18 +43,18 @@ public:
 	void zoradenieUzemnychJednotiek();
 	void test();
 	template<typename K, typename T, typename T2>
-	void usporiadajTabulku(UnsortedSequenceTable<K, T*> &table, Kriterium<T2, T> &kriterium);
+	void usporiadajTabulku(UnsortedSequenceTable<K, T*> &table, Kriterium<T2, T> &kriterium, bool desc);
 	
 };
 
 template<typename K, typename T, typename T2>
-inline void DataManazer::usporiadajTabulku(UnsortedSequenceTable<K, T*> &tab, Kriterium<T2, T> &krit)
+inline void DataManazer::usporiadajTabulku(UnsortedSequenceTable<K, T*> &tab, Kriterium<T2, T> &krit, bool desc)
 {
 	//vseobecna definicia quick sortu
 	QuickSort<K, T> *qs = new QuickSort<K, T>();
 
 	//volanie prerobenej metody sort
-	qs->sorth(tab, krit);
+	qs->sorth(tab, krit, desc);
 
 	delete qs;
 }

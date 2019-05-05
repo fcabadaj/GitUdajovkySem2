@@ -23,6 +23,6 @@ public:
 	string getNazovKraja() const { return nazovKraja_; };
 	void vypisSa(int kolo);
 
-	bool patriDoVUC(VyssiUzemnyCelok *vuc) const;
+	bool patriDoVUC(VyssiUzemnyCelok &vuc) const;
 };
 

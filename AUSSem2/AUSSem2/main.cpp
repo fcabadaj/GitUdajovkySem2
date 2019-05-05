@@ -14,6 +14,11 @@ int main()
 	bool nacitane = false;
 
 	DataManazer *dataMng = new DataManazer();
+
+	cout << "Nacitavam data... \n";
+	dataMng->nacitajData();
+	nacitane = true;
+
 	int choice = 155;
 
 	menu(choice);

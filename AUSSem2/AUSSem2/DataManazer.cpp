@@ -1290,6 +1290,244 @@ void DataManazer::vypisInfOUzemnychJednotkach()
 
 void DataManazer::zoradenieUzemnychJednotiek()
 {
+	system("CLS");
+	int i = 0;
+	int kolo = 0;
+	string nazovObce = "";
+	int ucastOd = 0;
+	int ucastDo = 0;
+	int voliciOd = 0;
+	int voliciDo = 0;
+	string prislusnyVUC = "";
+	VyssiUzemnyCelok *vuc = (*vysledkyKrajov_)[1];
+	char c = ' ';
+
+	FilterUcast *filterUcast = new FilterUcast(0, 0);
+	FilterPrislusnostObce *filterPrislusnost = new FilterPrislusnostObce(false);
+	FilterVolici *filterVolici = new FilterVolici(0, 0);
+	KriteriumNazov *kNazov = new KriteriumNazov();
+	KriteriumVolici *kVolici = new KriteriumVolici(1);
+	KriteriumUcast *kUcast = new KriteriumUcast(1);
+	KriteriumPrislusnostObce *kPrislusnost = new KriteriumPrislusnostObce(vuc);
+
+	UnsortedSequenceTable<int, UzemnyCelok*> *unsortedTable = new UnsortedSequenceTable<int, UzemnyCelok*>();
+	UnsortedSequenceTable<int, Obec*> *pomTab = new UnsortedSequenceTable<int, Obec*>();
+
+	cout << "======================================================= \n";
+	cout << "stlac 0 - PRE NAVRAT DO HLAVNEHO MENU \n";
+	cout << "stlac 1 - Kriterium Nazov \n";
+	cout << "stlac 2 - Kriterium Volici \n";
+	cout << "stlac 3 - Kriterium Ucast \n";
+	cout << "======================================================= \n";
+
+	cin >> i;
+
+	switch (i)
+	{
+	case 1:
+
+		cout << "======================================================= \n";
+		cout << "PRE FILTER UCAST \n";
+		cout << " Zadaj ucast volicov pre obec OD: \n";
+		cin >> ucastOd;
+		filterUcast->setAlpha(ucastOd);
+
+		cout << " Zadaj ucast volicov pre obec DO: \n";
+		cin >> ucastDo;
+		filterUcast->setBeta(ucastDo);
+
+		cout << "======================================================= \n";
+		cout << "PRE FILTER PRISLUSNOST OBCE \n";
+		cout << "Zadaj nazov Vyssieho uzemneho celku \n";
+		getline(cin >> ws, prislusnyVUC);
+
+		kolo = vyberKolo();
+
+		for (TableItem<int,Okres*> *okres : *vysledkyOkresov_)
+		{
+			if (okres->accessData()->getNazov() == prislusnyVUC)
+			{
+				vuc = okres->accessData();
+			}
+		}
+
+		for (TableItem<int, Kraj*> *kraj : *vysledkyKrajov_)
+		{
+			if (kraj->accessData()->getNazov() == prislusnyVUC)
+			{
+				vuc = kraj->accessData();
+			}
+		}
+
+		kPrislusnost->setVuc(vuc);
+		filterPrislusnost->setAlpha(vuc);
+		kUcast->setKolo(kolo);
+
+		for (TableItem<int, Obec*> *obec : *vysledkyObci_)
+		{
+			if (filterPrislusnost->evaluate(*obec->accessData(), *kPrislusnost) && filterUcast->evaluate(*obec->accessData(), *kUcast))
+			{
+				unsortedTable->insert(obec->getKey(),obec->accessData());
+			}
+		}
+
+		cout << "======================================================= \n";
+		cout << "Chces zoradit vzostupne(ascending)? (y/n) \n";
+		cin >> c;
+		if (c == 'y')
+			this->usporiadajTabulku(*unsortedTable, *kNazov, false);
+		else
+			this->usporiadajTabulku(*unsortedTable, *kNazov, true);
+
+		for (TableItem<int, UzemnyCelok*> *item : *unsortedTable)
+		{
+			pomTab->insert(item->getKey(), dynamic_cast<Obec*>(item->accessData()));
+		}
+
+		for (TableItem<int, Obec*> *obec : *pomTab)
+		{
+			obec->accessData()->vypisSa(kolo);
+		}
+
+		break;
+	case 2:
+
+		cout << "======================================================= \n";
+		cout << "PRE FILTER UCAST \n";
+		cout << "Zadaj percentualnu ucast volicov pre obec OD: \n";
+		cin >> ucastOd;
+		filterUcast->setAlpha(ucastOd);
+
+		cout << "Zadaj percentualnu ucast volicov pre obec DO: \n";
+		cin >> ucastDo;
+		filterUcast->setBeta(ucastDo);
+
+		cout << "======================================================= \n";
+		cout << "PRE FILTER PRISLUSNOST OBCE \n";
+		cout << "Zadaj nazov Vyssieho uzemneho celku \n";
+		getline(cin >> ws, prislusnyVUC);
+
+		kolo = vyberKolo();
+
+		for (TableItem<int, Okres*> *okres : *vysledkyOkresov_)
+		{
+			if (okres->accessData()->getNazov() == prislusnyVUC)
+				vuc = okres->accessData();
+		}
+
+		for (TableItem<int, Kraj*> *kraj : *vysledkyKrajov_)
+		{
+			if (kraj->accessData()->getNazov() == prislusnyVUC)
+				vuc = kraj->accessData();
+		}
+
+		kPrislusnost->setVuc(vuc);
+		filterPrislusnost->setAlpha(vuc);
+		kVolici->setKolo(kolo);
+
+		for (TableItem<int, Obec*> *obec : *vysledkyObci_)
+		{
+			if (filterPrislusnost->evaluate(*obec->accessData(), *kPrislusnost) && filterUcast->evaluate(*obec->accessData(), *kUcast))
+			{
+				unsortedTable->insert(obec->getKey(), obec->accessData());
+			}
+		}
+
+		cout << "======================================================= \n";
+		cout << "Chces zoradit vzostupne(ascending)? (y/n) \n";
+		cin >> c;
+		if (c == 'y')
+			this->usporiadajTabulku(*unsortedTable, *kVolici, false);
+		else
+			this->usporiadajTabulku(*unsortedTable, *kVolici, true);
+
+		for (TableItem<int, UzemnyCelok*> *item : *unsortedTable)
+		{
+			pomTab->insert(item->getKey(), dynamic_cast<Obec*>(item->accessData()));
+		}
+
+		for (TableItem<int, Obec*> *obec : *pomTab)
+		{
+			obec->accessData()->vypisSa(kolo);
+		}
+
+		break;
+	case 3:
+
+		cout << "======================================================= \n";
+		cout << "PRE FILTER UCAST \n";
+		cout << "Zadaj percentualnu ucast volicov pre obec OD: \n";
+		cin >> ucastOd;
+		filterUcast->setAlpha(ucastOd);
+
+		cout << "Zadaj percentualnu ucast volicov pre obec DO: \n";
+		cin >> ucastDo;
+		filterUcast->setBeta(ucastDo);
+
+		cout << "======================================================= \n";
+		cout << "PRE FILTER PRISLUSNOST OBCE \n";
+		cout << "Zadaj nazov Vyssieho uzemneho celku \n";
+		getline(cin >> ws, prislusnyVUC);
+
+		kolo = vyberKolo();
+
+		for (TableItem<int, Okres*> *okres : *vysledkyOkresov_)
+		{
+			if (okres->accessData()->getNazov() == prislusnyVUC)
+				vuc = okres->accessData();
+		}
+
+		for (TableItem<int, Kraj*> *kraj : *vysledkyKrajov_)
+		{
+			if (kraj->accessData()->getNazov() == prislusnyVUC)
+				vuc = kraj->accessData();
+		}
+
+		kPrislusnost->setVuc(vuc);
+		filterPrislusnost->setAlpha(vuc);
+		kVolici->setKolo(kolo);
+
+		for (TableItem<int, Obec*> *obec : *vysledkyObci_)
+		{
+			if (filterPrislusnost->evaluate(*obec->accessData(), *kPrislusnost) && filterUcast->evaluate(*obec->accessData(), *kUcast))
+			{
+				unsortedTable->insert(obec->getKey(), obec->accessData());
+			}
+		}
+
+		cout << "======================================================= \n";
+		cout << "Chces zoradit vzostupne(ascending)? (y/n) \n";
+		cin >> c;
+		if (c == 'y')
+			this->usporiadajTabulku(*unsortedTable, *kUcast, false);
+		else
+			this->usporiadajTabulku(*unsortedTable, *kUcast, true);
+
+		for (TableItem<int, UzemnyCelok*> *item : *unsortedTable)
+		{
+			pomTab->insert(item->getKey(), dynamic_cast<Obec*>(item->accessData()));
+		}
+
+		for (TableItem<int, Obec*> *obec : *pomTab)
+		{
+			obec->accessData()->vypisSa(kolo);
+		}
+
+		break;
+	default:
+		break;
+	}
+
+	delete filterUcast;
+	delete filterPrislusnost;
+	delete filterVolici;
+	delete kNazov;
+	delete kVolici;
+	delete kUcast;
+	delete kPrislusnost;
+	delete unsortedTable;
+	delete pomTab;
+
 }
 
 void DataManazer::test()
@@ -1304,7 +1542,7 @@ void DataManazer::test()
 	}
 
 
-	this->usporiadajTabulku(*unsortedTable, *knazov);
+	this->usporiadajTabulku(*unsortedTable, *knazov, false);
 
 	for each (TableItem<int, UzemnyCelok*> *obec in *unsortedTable)
 	{

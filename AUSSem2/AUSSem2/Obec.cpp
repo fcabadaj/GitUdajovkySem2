@@ -26,7 +26,7 @@ void Obec::vypisSa(int kolo)
 	}
 }
 
-bool Obec::patriDoVUC(VyssiUzemnyCelok * vuc) const
+bool Obec::patriDoVUC(VyssiUzemnyCelok &vuc) const
 {
-	return vuc->getNazov() == nazovKraja_ || vuc->getNazov() == nazovOkresu_;
+	return vuc.getNazov() == nazovKraja_ || vuc.getNazov() == nazovOkresu_;
 }
