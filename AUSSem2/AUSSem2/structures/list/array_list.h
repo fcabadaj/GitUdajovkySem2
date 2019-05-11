@@ -22,7 +22,7 @@ namespace structures
 
 		/// <summary> Destruktor. </summary>
 		~ArrayList();
-		
+
 		/// <summary> Operacia klonovania. Vytvori a vrati duplikat zoznamu. </summary>
 		/// <returns> Ukazovatel na klon struktury. </returns>
 		Structure* clone() const override;
@@ -82,7 +82,7 @@ namespace structures
 
 		/// <summary> Vymaze zoznam. </summary>
 		void clear() override;
-	
+
 		/// <summary> Vrati skutocny iterator na zaciatok struktury </summary>
 		/// <returns> Iterator na zaciatok struktury. </returns>
 		/// <remarks> Zabezpecuje polymorfizmus. </remarks>
@@ -140,7 +140,7 @@ namespace structures
 	};
 
 	template<typename T>
-	inline ArrayList<T>::ArrayList():
+	inline ArrayList<T>::ArrayList() :
 		List(),
 		array_(new Array<T>(4)),
 		size_(0)
@@ -148,7 +148,7 @@ namespace structures
 	}
 
 	template<typename T>
-	inline ArrayList<T>::ArrayList(const ArrayList<T>& other):
+	inline ArrayList<T>::ArrayList(const ArrayList<T>& other) :
 		List(),
 		array_(new Array<T>(*other.array_)),
 		size_(other.size_)
@@ -200,19 +200,21 @@ namespace structures
 	template<typename T>
 	inline T & ArrayList<T>::operator[](const int index)
 	{
+		DSRoutines::rangeCheckExcept(index, size_, "Index out of range in ArrayList");
 		return (*array_)[index];
 	}
 
 	template<typename T>
 	inline const T ArrayList<T>::operator[](const int index) const
 	{
+		DSRoutines::rangeCheckExcept(index, size_, "Index out of range in ArrayList");
 		return (*array_)[index];
 	}
 
 	template<typename T>
 	inline void ArrayList<T>::add(const T & data)
 	{
-		if (array_->size() == size_)
+		if (size_ == array_->size())
 		{
 			enlarge();
 		}
@@ -223,31 +225,29 @@ namespace structures
 	inline void ArrayList<T>::insert(const T & data, const int index)
 	{
 		if (index == static_cast<int>(size_))
-		{
 			add(data);
-		}
 		else
 		{
-			DSRoutines::rangeCheckExcept(index, size_, "Index out of range");
-
+			DSRoutines::rangeCheckExcept(index, size_, "Index out of range in ArrayList!");
 			if (array_->size() == size_)
 			{
 				enlarge();
 			}
-			Array<T>::copy(*array_, static_cast<int>(index), *array_, static_cast<int>(index + 1), static_cast<int>(size_ - index));
+			Array<T>::copy(*array_, index, *array_, index + 1, static_cast<int>(size_) - index);
 			(*array_)[index] = data;
 			size_++;
 		}
+
+
 	}
 
 	template<typename T>
 	inline bool ArrayList<T>::tryRemove(const T & data)
 	{
 		int index = getIndexOf(data);
+
 		if (index == -1)
-		{
 			return false;
-		}
 		else
 		{
 			removeAt(index);
@@ -258,10 +258,12 @@ namespace structures
 	template<typename T>
 	inline T ArrayList<T>::removeAt(const int index)
 	{
-		T result = (*this)[index];
-		Array<T>::copy(*array_, static_cast<int>(index + 1), *array_, static_cast<int>(index), static_cast<int>(size_ - index - 1));
+		//doplnit tuto metodu o zmensovanie arraylistu ked je to vyhodne, napr. ked pocet prvkov bude 1/4 z celk. velkosti pola	
+		DSRoutines::rangeCheckExcept(index, size_, "Index out of range in ArrayList!");
+		T tmp = (*array_)[index];
+		Array<T>::copy(*array_, index + 1, *array_, index, static_cast<int>(size_) - index - 1);
 		size_--;
-		return result;
+		return tmp;
 	}
 
 	template<typename T>
@@ -270,9 +272,7 @@ namespace structures
 		for (int index = 0; index < static_cast<int>(size_); index++)
 		{
 			if ((*this)[index] == data)
-			{
 				return index;
-			}
 		}
 		return -1;
 	}
@@ -315,7 +315,7 @@ namespace structures
 	inline ArrayList<T>::ArrayListIterator::~ArrayListIterator()
 	{
 		arrayList_ = nullptr;
-		position_ = 0;
+		position_ = -1;
 	}
 
 	template<typename T>
@@ -340,7 +340,7 @@ namespace structures
 	template<typename T>
 	inline Iterator<T>& ArrayList<T>::ArrayListIterator::operator++()
 	{
-		position_++;
+		++this->position_;
 		return *this;
 	}
 

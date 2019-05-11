@@ -30,9 +30,6 @@
     <Filter Include="Filtre">
       <UniqueIdentifier>{52dd9198-82cc-4529-8664-6eeeeeeea394}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Vyberove Kriteria">
-      <UniqueIdentifier>{d9c5e2c9-be19-42eb-b721-877865a4ded0}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Source Files">
       <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
       <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
@@ -113,17 +110,11 @@
     <ClInclude Include="structures\array\array.h">
       <Filter>structures\array</Filter>
     </ClInclude>
-    <ClInclude Include="structures\list\linked_list.h">
-      <Filter>structures\list</Filter>
-    </ClInclude>
     <ClInclude Include="structures\ds_routines.h">
       <Filter>structures</Filter>
     </ClInclude>
     <ClInclude Include="structures\heap_monitor.h">
       <Filter>structures</Filter>
-    </ClInclude>
-    <ClInclude Include="structures\table\treap.h">
-      <Filter>structures\table</Filter>
     </ClInclude>
     <ClInclude Include="Kriterium.h">
       <Filter>Kriteria</Filter>
@@ -195,6 +186,9 @@
       <Filter>structures\table</Filter>
     </ClInclude>
     <ClInclude Include="structures\table\sequence_table.h">
+      <Filter>structures\table</Filter>
+    </ClInclude>
+    <ClInclude Include="structures\table\sorted_sequence_table.h">
       <Filter>structures\table</Filter>
     </ClInclude>
   </ItemGroup>

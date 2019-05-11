@@ -39,7 +39,7 @@ namespace structures
 		/// <returns> Adresa prvku na danom indexe. </returns>
 		/// <exception cref="std::out_of_range"> Vyhodena, ak index nepatri do zoznamu. </exception>  
 		virtual T& operator[](const int index) = 0;
-		
+
 		/// <summary> Vrati hodnotou prvok na indexe. </summary>
 		/// <param name = "index"> Index prvku. </param>
 		/// <returns> Hodnota prvku na danom indexe. </returns>
@@ -56,23 +56,23 @@ namespace structures
 		/// <exception cref="std::out_of_range"> Vyhodena, ak index nepatri do zoznamu. </exception>  
 		/// <remarks> Ak je ako index zadana hodnota poctu prvkov (teda prvy neplatny index), metoda insert sa sprava ako metoda add. </remarks>
 		virtual void insert(const T& data, const int index) = 0;
-		
+
 		/// <summary> Odstrani prvy vyskyt prvku zo zoznamu. </summary>
 		/// <param name = "data"> Odstranovany prvok. </param>
 		/// <returns> true, ak sa podarilo prvok zo zoznamu odobrat, false inak. </returns>
 		virtual bool tryRemove(const T& data) = 0;
-		
+
 		/// <summary> Odstrani zo zoznamu prvok na danom indexe. </summary>
 		/// <param name = "index"> Index prvku. </param>
 		/// <returns> Odstraneny prvok. </returns>
 		/// <exception cref="std::out_of_range"> Vyhodena, ak index nepatri do zoznamu. </exception>  
 		virtual T removeAt(const int index) = 0;
-		
+
 		/// <summary> Vrati index prveho vyskytu prvku v zozname. </summary>
 		/// <param name = "data"> Prvok, ktoreho index sa hlada. </param>
 		/// <returns> Index prveho vyskytu prvku v zozname, ak sa prvok v zozname nenachadza, vrati -1. </returns>
 		virtual int getIndexOf(const T& data) = 0;
-		
+
 		/// <summary> Vymaze zoznam. </summary>
 		virtual void clear() = 0;
 

@@ -5,13 +5,12 @@
 #include <iostream>
 #include <string>
 #include <algorithm>
-#include "structures/list/array_list.h"
 #include <sstream>
-#include "structures/table/treap.h"
 #include "Okres.h"
 #include "Kraj.h"
 #include "Kriterium.h"
 #include "structures/table/unsorted_sequence_table.h"
+#include "structures/table/sorted_sequence_table.h"
 
 using namespace std;
 using namespace structures;
@@ -20,11 +19,11 @@ class DataManazer
 {
 
 private:
-	Treap<int,Kandidat*> *zoznamKandidatov1Kolo_;
-	Treap<int, Kandidat*> *zoznamKandidatov2Kolo_;
-	Treap<int, Obec*> *vysledkyObci_;
-	Treap<int, Okres*> *vysledkyOkresov_;
-	Treap<int, Kraj*> *vysledkyKrajov_;
+	SortedSequenceTable<int,Kandidat*> *zoznamKandidatov1Kolo_;
+	SortedSequenceTable<int, Kandidat*> *zoznamKandidatov2Kolo_;
+	SortedSequenceTable<int, Obec*> *vysledkyObci_;
+	SortedSequenceTable<int, Okres*> *vysledkyOkresov_;
+	SortedSequenceTable<int, Kraj*> *vysledkyKrajov_;
 	
 	void nacitajObce();
 	void nacitajKandidatov();
@@ -41,6 +40,7 @@ public:
 	void nacitajData();
 	void vypisInfOUzemnychJednotkach();
 	void zoradenieUzemnychJednotiek();
+	void vypisanieVysledkovKandidata();
 	void test();
 	template<typename K, typename T, typename T2>
 	void usporiadajTabulku(UnsortedSequenceTable<K, T*> &table, Kriterium<T2, T> &kriterium, bool desc);

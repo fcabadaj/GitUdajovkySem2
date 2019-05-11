@@ -57,28 +57,37 @@ namespace structures
 	template<typename K, typename T>
 	inline Structure * UnsortedSequenceTable<K, T>::clone() const
 	{
+
 		return new UnsortedSequenceTable<K, T>(*this);
 	}
 
 	template<typename K, typename T>
 	inline TableItem<K, T>& UnsortedSequenceTable<K, T>::getItemAtIndex(int index)
 	{
+
+
 		return *(*list_)[index];
 	}
+
 
 	template<typename K, typename T>
 	inline void UnsortedSequenceTable<K, T>::swap(int indexFirst, int indexSecond)
 	{
 		swap(getItemAtIndex(indexFirst), getItemAtIndex(indexSecond));
+
 	}
+
 
 	template<typename K, typename T>
 	inline void UnsortedSequenceTable<K, T>::swap(TableItem<K, T>& first, TableItem<K, T>& second)
 	{
 		
 		TableItem<K, T> third = first;
+
 		first = second;
+
 		second = third;
+
 	}
 
 }

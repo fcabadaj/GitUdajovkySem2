@@ -4,7 +4,7 @@
 #include "../list/list.h"
 #include <stdexcept>
 
-namespace structures 
+namespace structures
 {
 
 	/// <summary> Sekvencna tabulka. </summary>
@@ -104,6 +104,7 @@ namespace structures
 	{
 		clear();
 		delete list_;
+
 		list_ = nullptr;
 	}
 
@@ -129,8 +130,10 @@ namespace structures
 		if (this != &other)
 		{
 			clear();
+
 			for (TableItem<K, T>* item : *other.list_)
 			{
+
 				list_->add(new TableItem<K, T>(*item));
 			}
 		}
@@ -140,93 +143,98 @@ namespace structures
 	template<typename K, typename T>
 	inline T & SequenceTable<K, T>::operator[](const K key)
 	{
-		TableItem<K, T>* tableItem = findTableItem(key);
-		if (tableItem != nullptr)
-		{
-			return tableItem->accessData();
-		}
+		TableItem<K, T>* item = findTableItem(key);
+
+		// ak som ho nenasiel
+		if (item == nullptr)
+			throw std::out_of_range("Nenasli sa data pre Sekvencnu tabulku");
 		else
-		{
-			throw std::out_of_range("SequenceTable<K, T>::operator[]: Data not found!");
-		}
+			return item->accessData();
 	}
 
 	template<typename K, typename T>
 	inline const T SequenceTable<K, T>::operator[](const K key) const
 	{
-		TableItem<K, T>* tableItem = findTableItem(key);
-		if (tableItem != nullptr)
-		{
-			T result = tableItem->accessData();
-			return result;
-		}
+		TableItem<K, T>* item = findTableItem(key);
+
+		// ak som ho nenasiel
+		if (item == nullptr)
+			throw std::out_of_range("Nenasli sa data pre Sekvencnu tabulku");
 		else
 		{
-			throw std::out_of_range("SequenceTable<K, T>::operator[]: Data not found!");
+
+			return item->accessData();
 		}
+
 	}
 
 	template<typename K, typename T>
 	inline void SequenceTable<K, T>::insert(const K & key, const T & data)
 	{
-		//if (!containsKey(key))
-		//{
-			TableItem<K, T>* tableItem = new TableItem<K, T>(key, data);
-			list_->add(tableItem);
-		//}
-		//else
-		//{
-		//	throw std::logic_error("SequenceTable<K, T>::insert: Key already present in the table!");
-		//}
+		TableItem<K, T>* item = new TableItem<K, T>(key, data);
+
+		list_->add(item);
 	}
 
 	template<typename K, typename T>
 	inline T SequenceTable<K, T>::remove(const K & key)
 	{
-		TableItem<K, T>* tableItem = findTableItem(key);
-		if (tableItem != nullptr)
-		{
-			list_->tryRemove(tableItem);
-			T result = tableItem->accessData();
-			delete tableItem;
-			return result;
-		}
+		TableItem<K, T>* item = findTableItem(key);
+
+		T retVal;
+
+		if (item == nullptr)
+			throw std::out_of_range("Nenasli sa data pre Sekvencnu tabulku");
 		else
 		{
-			throw std::logic_error("SequenceTable<K, T>::remove: Key not found!");
+
+			list_->tryRemove(item);
+			retVal = item->accessData();
+			delete item;
+			return retVal;
+
 		}
+
 	}
+
 
 	template<typename K, typename T>
 	inline bool SequenceTable<K, T>::tryFind(const K & key, T & data)
 	{
-		TableItem<K, T>* tableItem = findTableItem(key);
-		if (tableItem != nullptr)
-		{
-			data = tableItem->accessData();
-			return true;
-		}
+		TableItem<K, T>* item = findTableItem(key);
+
+		if (item == nullptr)
+			return false;
 		else
 		{
-			return false;
+
+			data = item->accessData();
+			return true;
 		}
 	}
 
 	template<typename K, typename T>
 	inline bool SequenceTable<K, T>::containsKey(const K & key)
 	{
-		T data;
-		return tryFind(key, data);
+		bool retVal;
+		T d;
+
+		retVal = tryFind(key, d);
+
+		return retVal;
+
 	}
 
 	template<typename K, typename T>
 	inline void SequenceTable<K, T>::clear()
 	{
-		for (auto tableItem : *this)
-		{
-			delete tableItem;
-		}
+
+		for (TableItem<K, T>* item : *list_)
+			delete item;
+
+
 		list_->clear();
+
 	}
 
 	template<typename K, typename T>
@@ -251,13 +259,13 @@ namespace structures
 	template<typename K, typename T>
 	inline TableItem<K, T>* SequenceTable<K, T>::findTableItem(const K & key) const
 	{
-		for (TableItem<K, T>* tableitem : *this)
+		for each (TableItem<K, T>* item in *this)
 		{
-			if (tableitem->getKey() == key)
-			{
-				return tableitem;
-			}
+			if (item->getKey() == key)
+				return item;
+
 		}
+
 
 		return nullptr;
 	}

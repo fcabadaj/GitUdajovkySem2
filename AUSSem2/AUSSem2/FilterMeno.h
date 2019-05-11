@@ -11,13 +11,10 @@ public:
 	~FilterMeno();
 };
 
-
-
 FilterMeno::FilterMeno(string alpha):
 	Filterfi1(alpha)
 {
 }
-
 
 FilterMeno::~FilterMeno()
 {

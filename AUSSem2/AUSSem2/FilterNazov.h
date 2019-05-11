@@ -8,6 +8,7 @@ class FilterNazov :
 public:
 	FilterNazov(std::string alpha);
 	~FilterNazov();
+	
 };
 
 FilterNazov::FilterNazov(std::string alpha) :

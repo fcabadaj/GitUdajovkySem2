@@ -158,12 +158,11 @@
     <ClInclude Include="structures\ds_routines.h" />
     <ClInclude Include="structures\heap_monitor.h" />
     <ClInclude Include="structures\list\array_list.h" />
-    <ClInclude Include="structures\list\linked_list.h" />
     <ClInclude Include="structures\list\list.h" />
     <ClInclude Include="structures\structure.h" />
     <ClInclude Include="structures\table\sequence_table.h" />
+    <ClInclude Include="structures\table\sorted_sequence_table.h" />
     <ClInclude Include="structures\table\sorting\quick_sort.h" />
-    <ClInclude Include="structures\table\treap.h" />
     <ClInclude Include="structures\table\unsorted_sequence_table.h" />
     <ClInclude Include="structures\vector\vector.h" />
     <ClInclude Include="UzemnyCelok.h" />

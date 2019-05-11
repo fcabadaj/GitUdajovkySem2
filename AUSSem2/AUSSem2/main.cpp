@@ -38,6 +38,9 @@ int main()
 		case 2:
 			dataMng->zoradenieUzemnychJednotiek();
 			break;
+		
+		case 3:
+			break;
 
 		case 9:
 			dataMng->test();
@@ -75,6 +78,7 @@ void menu(int &c)
 	cout << "stlac 0 - Ukoncenie programu \n";
 	cout << "stlac 1 - Vypis informacie o Uzemnom celku \n";
 	cout << "stlac 2 - Zoradenie uzemnych jednotiek \n";
+	cout << "stlac 3 - Vypisanie vysledkov kandidata v uzemnej jednotke \n";
 	cout << "stlac 9 - TEST \n";
 	cout << "STLAC 10 - PRE NACITANIE UDAJOV ZO SUBOROV \n";
 	cout << "======================================================= \n";

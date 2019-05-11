@@ -5,19 +5,19 @@
 #include <stdexcept>
 
 namespace structures {
-	
+
 	/// <summary> Vektor. </summary>
 	class Vector : public Structure
-	{		
+	{
 	public:
 		/// <summary> Konstruktor vytvori vektor o velkosti size bytov. </summary>
 		/// <param name = "size"> Pocet bytov vo vytvorenom vektore. </param>
 		Vector(size_t size);
-		
+
 		/// <summary> Kopirovaci konstruktor. </summary>
 		/// <param name = "other"> Zdrojovy vektor. </param>
 		Vector(const Vector& other);
-		
+
 		/// <summary> Destruktor. </summary>
 		~Vector();
 
@@ -35,7 +35,7 @@ namespace structures {
 		/// <exception cref="std::logic_error"> Vyhodena, vstupny parameter nie je Vector. </exception>  
 		/// <remarks> Vyuziva typovy operator priradenia. </remarks>
 		Structure& operator=(const Structure& other) override;
-		
+
 		/// <summary> Operator priradenia. </summary>
 		/// <param name = "other"> Vektor, z ktoreho sa maju prebrat vlastnosti. </param>
 		/// <returns> Adresa, na ktorej sa tento vektor nachadza po priradeni. </returns>
@@ -51,13 +51,13 @@ namespace structures {
 		/// <returns> Adresa byte-u na danom indexe. </returns>
 		/// <exception cref="std::out_of_range"> Vyhodena, ak index nepatri do vektoru. </exception>  
 		byte& operator[](const int index);
-		
+
 		/// <summary> Vrati hodnotou byte na indexe. </summary>
 		/// <param name = "index"> Index byte-u. </param>
 		/// <returns> Hodnota byte-u na danom indexe. </returns>
 		/// <exception cref="std::out_of_range"> Vyhodena, ak index nepatri do vektoru. </exception>  
 		byte operator[](const int index) const;
-		
+
 		/// <summary> Precita count bytov od daneho indexu do cielovej adresy dest. </summary>
 		/// <param name = "index"> Index byte-u vo vektore, od ktoreho sa zacne citat. </param>
 		/// <param name = "count"> Pocet bytov, ktore budu skopirovane z vektora od pozicie index do pamate dest. </param>
@@ -80,7 +80,7 @@ namespace structures {
 		/// <param name = "length"> Pocet bytov, ktore budu skopirovane z vektora src od pozicie srcStartIndex do vektora dest od pozicie destStartIndex. </param>
 		/// <exception cref="std::out_of_range"> Vyhodena, ak zaciatocne alebo koncove indexy nepatria do prislusnych vektorov. </exception> 
 		static void copy(const Vector& src, const int srcStartIndex, Vector& dest, const int destStartIndex, const int length);
-	
+
 	private:
 		/// <summary> Ukazovatel na zaciatok pamate patriacej vektoru. </summary>
 		void* memory_;
